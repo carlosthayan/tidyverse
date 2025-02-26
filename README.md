@@ -1,2 +1,2 @@
 # tidyverse
-explorando sobre o pacote tidyverse
+explorando o pacote tidyverse
