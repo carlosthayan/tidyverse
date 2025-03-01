@@ -81,20 +81,6 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia, color = cilindrada < 5))+
   geom_point()
 
 
-
-
-
-
-
-
-
-
-
-
-
-#
-
-
 #3. Geometrias ----
 
 # Analisando um mesmo gráfico com geometrias diferentes
