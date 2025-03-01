@@ -81,6 +81,7 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia, color = cilindrada < 5))+
   geom_point()
 
 
+
 #3. Geometrias ----
 
 # Analisando um mesmo gráfico com geometrias diferentes
@@ -222,3 +223,59 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia))+
 
 
 
+
+
+#4. Facetas ----
+# Criação de facetas para dividir o gráfico
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_point()+
+  facet_wrap(~cilindros)
+
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_point()+
+  facet_grid(tracao~cilindros)
+
+
+ggplot(milhas, aes(x = cilindrada, y = rodovia)) + 
+  geom_point() + 
+  facet_grid(tracao ~ cilindros, scales = "free_y")
+
+
+ # 
+ #Exercicio 9.4.1----
+
+# 1 - O que acontece se você criar facetas com uma variável contínua?
+
+# Divide o gráfico em vários intervalos de 1 a 7
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_point()+
+  facet_wrap(~cilindrada)
+
+# 2 - O que significam essas células vazias no gráfico acima com 
+# facet_grid(tracao ~ cilindros)? Execute o código a seguir. 
+# Como elas se relacionam com o gráfico que resulta desse código?
+
+# Acontece porque nem todas as combinações podem existir, o ggplot cria espaçoes vazios para manter um padrão.
+ggplot(milhas) + 
+  geom_point(aes(x = tracao, y = cilindros))+
+  facet_grid(tracao~cilindros)
+
+
+# 3 - Quais gráficos o código a seguir cria? O que o . faz?
+
+# Cria facetas para dianteira, traseira e 4x4  das facetas do gráfico.
+ggplot(milhas)+
+  geom_point(aes(x = cilindrada, y = rodovia))+
+  facet_grid(tracao ~ .)
+
+# Cria facetas para número de cilindros e mostra o gráfico na vertical
+ggplot(milhas) + 
+  geom_point(aes(x = cilindrada, y = rodovia)) +
+  facet_grid(. ~ cilindros)
+
+# 4 - Observe o primeiro gráfico criado por faceta abaixo:
+ggplot(milhas)+
+  geom_point(aes(x = cilindrada, y = rodovia))+
+  facet_wrap(~classe, nrow = 2)
+
+# 5 -
