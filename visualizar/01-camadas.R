@@ -217,14 +217,6 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia))+
 
 
 
-
-
-
-
-
-
-
-
 #4. Facetas ----
 # Criação de facetas para dividir o gráfico
 ggplot(milhas, aes(x = cilindrada, y = rodovia))+
