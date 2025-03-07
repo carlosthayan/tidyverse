@@ -270,4 +270,113 @@ ggplot(milhas)+
   geom_point(aes(x = cilindrada, y = rodovia))+
   facet_wrap(~classe, nrow = 2)
 
-# 5 -
+# 5 - Leia ?facet_wrap. O que o argumento nrow faz? O que o argumento ncol faz? 
+#Quais outras opções controlam o layout dos paineis individuais? Por que a função facet_grid() não tem os argumentos nrow e ncol?
+
+?facet_wrap
+?facet_grid
+#nrow define o numero de linhas e o ncol define o número de colunas.
+#O layout é forçado a seguir essa estrutura, podendo gerar espaços vazios se alguns níveis das variáveis não tiverem dados.
+
+# 6 - Qual dos gráficos abaixo facilita a comparação do tamanho do motor (cilindrada) entre carros com diferentes tipos de tração?
+#O que isso diz sobre quando colocar uma variável para criar facetas nas linhas ou colunas?
+
+# A primeira opção acaba sendo melhor visualmente do que a segunda. Sobre quando colocar uma variável, é preciso ver qual gráfico representa melhor o seu conjunto de dados.
+ggplot(milhas, aes(x = cilindrada)) + 
+  geom_histogram() + 
+  facet_grid(tracao ~ .)
+
+ggplot(milhas, aes(x = cilindrada)) + 
+  geom_histogram() +
+  facet_grid(. ~ tracao)
+
+
+# 7 - Muda a posição das facetas.
+ggplot(milhas) + 
+geom_point(aes(x = cilindrada, y = rodovia)) +
+  facet_grid(tracao ~ .)
+
+ggplot(milhas)+
+  geom_point(aes(x = cilindrada, y = rodovia))+
+  facet_wrap(tracao ~ .)
+
+
+ 
+ 
+ 
+ 
+ 
+
+
+#5. Transformações estatísticas ----
+
+# Testando transformações
+ggplot(diamante, aes(x = corte))+
+  geom_bar()
+
+diamante |> 
+  count(corte) |> 
+  ggplot(aes(x = corte, y = n))+
+  geom_bar(stat = "identity")
+
+View(diamante)
+
+# Frequencia
+ggplot(diamante, aes(x = corte, y = after_stat(prop), group = 1))+
+  geom_bar()
+
+# Testando o stat_summary
+ggplot(diamante)+
+  stat_summary(
+    aes(x = corte, y = profundidade),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+
+ #Exercicio 9.5.1----
+
+# 1 - Qual é a geometria associada ao stat_summary() por padrão?
+# Como você poderia reescrever o código para gerar o gráfico anterior usando uma função geom ao invés da função stat?
+
+# 
+ggplot(diamante)+
+  stat_summary(
+    aes(x = corte, y = profundidade)
+  )
+
+diamantes_resumo <- 
+  diamante |> 
+  group_by(corte) |> 
+  summarise(
+    media = mean(profundidade),  # media da profundidade
+    min = min(profundidade),     # profundidade mínima
+    max = max(profundidade)      # profundidade máxima
+  )
+
+diamantes_resumo
+
+
+ggplot(diamantes_resumo, aes(x = corte, y = media))+
+  geom_pointrange(aes(ymin = min, ymax = max), size =1)+
+  labs(title = "Profundidade dos diamantes por corte",
+       y = "Media",
+       x = "Corte")
+
+# 2 - O que a função geom_col() faz? No que ela difere da função geom_bar()?
+
+ggplot(diamantes_resumo, aes(x = corte, y = media))+
+  geom_col()
+
+# geom_bar não é recomendado para representar valores numericos em y, geom_bar é para gráficos de contagem e espera apenas um eixo x
+ggplot(diamantes_resumo, aes(x = corte))+
+  geom_bar()
+
+# 3 - A maioria dos geoms e stats vêm em pares que quase sempre são usados em conjunto.
+# Faça uma lista de todos os pares. O que eles têm em comum? (Dica: Leia a documentação.)
+
+
+
+
+
+
