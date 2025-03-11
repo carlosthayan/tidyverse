@@ -11,6 +11,8 @@ O maior valor de uma imagem está em quando ela nos força a perceber o que não
 - John Tukey"
 
 
+
+
 #2. Mapeamento estético ----
 
 # Entendendo sobre o conjunto de dados milhas.
@@ -79,6 +81,7 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia))+
 # Ele da cor somente as cilindradas maiores do que 5 e atribui valores booleanos.
 ggplot(milhas, aes(x = cilindrada, y = rodovia, color = cilindrada < 5))+
   geom_point()
+
 
 
 
@@ -217,7 +220,10 @@ ggplot(milhas, aes(x = cilindrada, y = rodovia))+
 
 
 
+
+
 #4. Facetas ----
+
 # Criação de facetas para dividir o gráfico
 ggplot(milhas, aes(x = cilindrada, y = rodovia))+
   geom_point()+
@@ -308,6 +314,7 @@ ggplot(milhas)+
  
 
 
+
 #5. Transformações estatísticas ----
 
 # Testando transformações
@@ -372,9 +379,102 @@ ggplot(diamantes_resumo, aes(x = corte, y = media))+
 ggplot(diamantes_resumo, aes(x = corte))+
   geom_bar()
 
-# 3 - A maioria dos geoms e stats vêm em pares que quase sempre são usados em conjunto.
-# Faça uma lista de todos os pares. O que eles têm em comum? (Dica: Leia a documentação.)
+# 3 - 
 
+# 4 - 
+
+# 5 -
+
+
+
+#6. Ajustes de Posição ----
+
+# Cor na borda
+ggplot(milhas, aes(x = tracao, color = tracao))+
+  geom_bar()
+
+# Cor na barra inteira
+ggplot(milhas, aes(x = tracao, fill = tracao))+
+  geom_bar()
+
+# Direita
+ggplot(milhas, aes(x = tracao, fill = tracao)) + 
+  geom_bar()
+
+
+# Colorindo as bordas
+ggplot(milhas, aes(x = tracao, color = tracao))+
+  geom_bar()
+
+# Cor a tudo
+ggplot(milhas, aes(x = tracao, fill = tracao))+
+  geom_bar()
+
+# Ele da cor através de classes
+ggplot(milhas, aes(x = tracao, fill = classe))+
+  geom_bar()
+
+# Testando outros tipos
+ggplot(milhas, aes(x = tracao, fill = classe))+
+  geom_bar(alpha = 1/5, position = "identity")
+
+ggplot(milhas, aes(x = tracao, color = classe))+
+  geom_bar(fill = NA, position = "identity")
+
+ggplot(milhas, aes(x = tracao, fill = classe))+
+  geom_bar(position = "fill")
+
+# testando dodge
+ggplot(milhas, aes(x = tracao, fill = classe))+
+  geom_bar(position = "dodge")
+
+# sem jitter
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_point()
+
+# com jitter, ele coloca os pontos sem sobrepor
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_point(position = "jitter")
+
+ggplot(milhas, aes(x = cilindrada, y = rodovia))+
+  geom_jitter()
+
+
+
+
+
+ 
+ 
+
+ #Exercicio 9.6.1----
+
+# 1 - Qual o problema com o gráfico abaixo? Como você poderia melhorá-lo?
+ggplot(milhas, aes(x = cidade, y = rodovia)) + 
+  geom_point()
+
+# 2 - Qual, caso exista, é a diferença entre os dois gráficos abaixo? Por que?
+# São identicos porque o identity é padrão
+ggplot(milhas, aes(x = cilindrada, y = rodovia)) +
+  geom_point()
+
+ggplot(milhas, aes(x = cilindrada, y = rodovia)) +
+  geom_point(position = "identity")
+
+# 3 - Quais parâmetros do geom_jitter() controlam a quantidade de “jittering” (ruído aleatório adicionado a cada ponto)?
+#width e height controlam
+ggplot(milhas, aes(x = cidade, y = rodovia))+
+  geom_jitter(width = 0.3, height = 3)
+
+
+# 4 - Compare e aponte as diferenças entre geom_jitter() e geom_count().
+# jitter coloca todos os pontos no gráfico sem sobrescrever enquanto o geom_count conta as sobreposições do grafico
+ggplot(milhas, aes(x = cidade, y = rodovia))+
+  geom_point(position = "jitter")
+
+ggplot(milhas, aes(x = cidade, y = rodovia))+
+  geom_count()
+
+# 5 -
 
 
 
